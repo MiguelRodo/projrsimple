@@ -1,0 +1,33 @@
+# --------------------------------------------
+# CITATION file created with {cffr} R package
+# See also: https://docs.ropensci.org/cffr/
+# --------------------------------------------
+ 
+cff-version: 1.2.0
+message: 'To cite package "projrsimple" in publications use:'
+type: software
+license: CC-BY-4.0
+title: 'projrsimple: Initialise and run a simple project workflow'
+version: 0.0.0-1
+abstract: Initialise and run a simple project workflow
+authors:
+- family-names: Rodo
+  given-names: Miguel
+  email: miguel.rodo@uct.ac.za
+preferred-citation:
+  type: generic
+  title: 'projrsimple: Initialise and run a simple project workflow'
+  authors:
+  - family-names: Rodo
+    given-names: Miguel
+    email: miguel.rodo@uct.ac.za
+  url: https://github.com/MiguelRodo/projrsimple/#readme
+  abstract: Initialise and run a simple project workflow
+  version: 0.0.0-1
+repository-code: https://github.com/MiguelRodo/projrsimple
+url: https://github.com/MiguelRodo/projrsimple/#readme
+contact:
+- family-names: Rodo
+  given-names: Miguel
+  email: miguel.rodo@uct.ac.za
+

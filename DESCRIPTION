@@ -1,0 +1,13 @@
+Package: projrsimple
+Title: Initialise and run a simple project workflow
+Version: 0.0.0-1
+Authors@R: 
+    person("Miguel", "Rodo", , "miguel.rodo@uct.ac.za", role = c("aut", "cre"))
+Maintainer: Miguel Rodo <miguel.rodo@uct.ac.za>
+Description: Initialise and run a simple project workflow
+License: CC BY 4.0
+URL: https://github.com/MiguelRodo/projrsimple/#readme
+BugReports: https://github.com/MiguelRodo/projrsimple/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2

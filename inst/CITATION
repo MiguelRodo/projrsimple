@@ -1,0 +1,11 @@
+citHeader("To cite `projrsimple` in publications use:")
+
+bibentry(bibtype = "Misc",
+         key = "rodo",
+         title = "projrsimple: Initialise and run a simple project workflow",
+         author = person(given = "Miguel",
+                         family = "Rodo",
+                         email = "miguel.rodo@uct.ac.za"),
+         url = "https://github.com/MiguelRodo/projrsimple/#readme",
+         abstract = "Initialise and run a simple project workflow",
+         version = "0.0.0-1")
