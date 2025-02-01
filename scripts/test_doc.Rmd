@@ -1,0 +1,10 @@
+---
+title: Test Rmd
+output: html_document
+---
+
+```{r}
+dir.create("_output")
+file.create("_output/test_r_script_output.txt")
+```
+

@@ -4,3 +4,4 @@ library(cffr)
 
 library(codemeta)
 
+library(devtools)

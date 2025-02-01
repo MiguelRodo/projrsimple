@@ -1,17 +1,21 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# {{ Package }}
+# projrsimple
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of {{ Package }} is to …
+The goal of `projrsimple` is to initialise and run a simple project workflow.
 
 ## Installation
 
-You can install the development version of {{ Package }} like so:
+You can install the development version of `projrsimple` like so:
 
-    # FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+```r
+if (!requireNamespace("remotes", quietly = TRUE)) {
+    install.packages("remotes")
+}
+remotes::install_github("MiguelRodo/projrsimple")
+```
 
-The purpose of projrsimple is to initialise and run a simple project
-workflow.
+## Usage
