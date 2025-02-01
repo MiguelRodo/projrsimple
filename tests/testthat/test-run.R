@@ -497,11 +497,10 @@ test_that("Not clearing output", {
       file.path("scripts", "noclear.R")
     )
 
-    # Make an existing file in _output
-    dir.create("_output", showWarnings = FALSE)
+    # Create an existing file in _output
     writeLines("keep me!", file.path("_output", "dont_remove.txt"))
 
-    # Since clear_output_and_docs = FALSE, we do NOT remove dont_remove.txt
+    # Since clear_output_and_docs = FALSE, the existing file should remain.
     expect_true(
       projr_run(
         scripts = NULL,
@@ -512,13 +511,11 @@ test_that("Not clearing output", {
         dir_exec = getwd()
       )
     )
-
-    # The old file remains
     expect_true(file.exists(file.path("_output", "dont_remove.txt")))
-    # The new script also ran and created no_clear_script.txt
     expect_true(file.exists(file.path("_output", "no_clear_script.txt")))
   })
 })
+
 
 test_that("Copying to docs vs not copying", {
   with_tempdir({
