@@ -406,9 +406,43 @@ test_that("Scripts specified (no auto-detect)", {
 
 test_that("Qmd specified, but quarto project exists", {
   skip_if_not_installed("quarto")
-
+  
   with_tempdir({
-    skip()
+    # Create a Quarto project by adding _quarto.yml in the working directory.
+    writeLines("project:\n  type: website\n", "_quarto.yml")
+    dir.create("scripts", showWarnings = FALSE)
+    # Write a Qmd script that would normally create a file if run individually.
+    writeLines(
+      c(
+        "---",
+        "title: Ignored Qmd",
+        "format: html",
+        "---",
+        "",
+        "```{r}",
+        'file.create("_output/test_qmd_specified.txt")',
+        "```",
+        ""
+      ),
+      con = file.path("scripts", "ignore_me.qmd")
+    )
+    
+    # Because a Quarto project exists, the function should warn that .qmd
+    # scripts are not run individually.
+    expect_warning(
+      projr_run(
+        scripts = "ignore_me.qmd",
+        skip_quarto_project = FALSE,
+        clear_output_and_docs = FALSE,
+        copy_docs = TRUE,
+        dir_scripts = "scripts",
+        dir_exec = getwd()
+      ),
+      "Quarto project detected"
+    )
+    
+    # The Qmd script should not be run individually, so the file should not exist.
+    expect_false(file.exists("_output/test_qmd_specified.txt"))
   })
 })
 
