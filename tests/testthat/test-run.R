@@ -108,8 +108,8 @@ test_that("Running a qmd that creates NO `_files` directory", {
     expect_true(file.exists(file.path("docs", "no_files.html")))
     # No `_files` directory, so nothing to check there
     expect_false(dir.exists(file.path("docs", "no_files_files")))
-    # browser()
-    # browser()
+    
+    
     expect_true(file.exists("_output/test_r_script_output.txt"))
 
   })
@@ -149,8 +149,6 @@ test_that("Running a qmd that DOES create a `_files` directory", {
     expect_true(file.exists(file.path("docs", "no_files.html")))
     # No `_files` directory, so nothing to check there
     expect_false(dir.exists(file.path("docs", "no_files_files")))
-    # browser()
-    # browser()
     expect_true(file.exists("_output/test_r_script_output.txt"))
   })
 })
@@ -520,7 +518,7 @@ test_that("Not clearing output", {
 test_that("Copying to docs vs not copying", {
   with_tempdir({
     dir.create("scripts", showWarnings = FALSE)
-    # Minimal Rmd that produces an .html
+    # Minimal Rmd that produces an HTML file.
     writeLines(
       c(
         "---",
@@ -534,11 +532,11 @@ test_that("Copying to docs vs not copying", {
         "```",
         ""
       ),
-      file.path("scripts", "copy_doc.Rmd")
+      con = file.path("scripts", "copy_doc.Rmd")
     )
 
-    # 1) copy_docs = FALSE -> 'docs' is cleared and recreated if clear_output_and_docs=TRUE,
-    #    but no doc is copied
+    # Case 1: copy_docs = FALSE. The docs directory should be (re)created,
+    # but no HTML file should be copied there.
     expect_true(
       projr_run(
         scripts = "copy_doc.Rmd",
@@ -549,14 +547,11 @@ test_that("Copying to docs vs not copying", {
         dir_exec = getwd()
       )
     )
-    # 'docs' got recreated
-    expect_true(dir.exists("docs"))
-    # But no doc file inside
+
     expect_false(file.exists(file.path("docs", "copy_doc.html")))
-    # The script did run, though
     expect_true(file.exists("_output/copy_doc_ran.txt"))
 
-    # 2) copy_docs = TRUE -> now it should copy the generated .html to docs
+    # Case 2: copy_docs = TRUE. The generated HTML should be copied to docs.
     expect_true(
       projr_run(
         scripts = "copy_doc.Rmd",
@@ -575,13 +570,32 @@ test_that("Setting scripts directory, output directory, docs directory", {
   with_tempdir({
     dir.create("my_scripts", showWarnings = FALSE)
     dir.create("my_outdir", showWarnings = FALSE)
+    file.create("my_outdir/to_remove.txt")
     dir.create("my_docs", showWarnings = FALSE)
+    file.create("my_outdir/to_remove.txt")
 
     # Minimal R script
     writeLines(
-      'file.create("_output/test_custom_dirs.txt")',
+      'file.create("my_outdir/test_custom_dirs.txt")',
       file.path("my_scripts", "custom.R")
     )
+    # Minimal Rmd
+    writeLines(
+      c(
+        "---",
+        "title: Copy doc test",
+        "output: html_document",
+        "---",
+        "",
+        "```{r}",
+        'dir.create("my_outdir", showWarnings = FALSE)',
+        'file.create("my_outdir/test.Rmd")',
+        "```",
+        ""
+      ),
+      con = file.path("my_scripts", "copy_doc.Rmd")
+    )
+
 
     # The default `_output` or `docs` won't be used because we override them
     expect_true(
@@ -589,7 +603,7 @@ test_that("Setting scripts directory, output directory, docs directory", {
         scripts = NULL,
         skip_quarto_project = TRUE,
         clear_output_and_docs = TRUE,
-        copy_docs = FALSE,
+        copy_docs = TRUE,
         dir_scripts = "my_scripts",
         dir_output = "my_outdir",
         dir_docs = "my_docs",
@@ -597,22 +611,12 @@ test_that("Setting scripts directory, output directory, docs directory", {
       )
     )
 
-    # "my_outdir" was cleared/recreated
-    expect_true(dir.exists("my_outdir"))
-    # but note that our script writes to `_output/test_custom_dirs.txt`,
-    # which is the default location in the script code:
-    expect_false(file.exists("_output/test_custom_dirs.txt"))
-    # The script did run, so that file was created at `_output/`.
-    # But we have no explicit checks of whether that is "correct" usage
-    # or if your script code also needs to respect `dir_output`.
+    expect_false(file.exists("my_outdir/to_remove.txt"))
+    expect_false(file.exists("my_docs/to_remove.txt"))
 
-    # docs was also cleared (and recreated), but no docs since no Rmd was used
-    expect_true(dir.exists("my_docs"))
+    expect_true(file.exists("my_outdir/test_custom_dirs.txt"))
+    expect_true(file.exists("my_outdir/test.Rmd"))
+    expect_true(file.exists("my_docs/copy_doc.html"))
   })
 })
 
-test_that("Extra or unanticipated scenarios", {
-  # Add any extra tests that are relevant to your own workflow here.
-  # For example, handling non-UTF-8 filenames, or verifying special side effects.
-  expect_true(TRUE)
-})

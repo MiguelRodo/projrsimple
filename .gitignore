@@ -14,3 +14,7 @@ _output/**
 docs/**
 # End of projr section
 
+.Rdata
+.httr-oauth
+.DS_Store
+.quarto

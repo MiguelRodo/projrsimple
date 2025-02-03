@@ -1,6 +1,6 @@
 Package: projrsimple
 Title: Initialise and run a simple project workflow
-Version: 0.0.0-1
+Version: 0.0.1
 Authors@R: 
     person("Miguel", "Rodo", , "miguel.rodo@uct.ac.za", role = c("aut", "cre"))
 Maintainer: Miguel Rodo <miguel.rodo@uct.ac.za>
@@ -12,5 +12,9 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Suggests: 
-    testthat (>= 3.0.0)
+    devtools,
+    gert,
+    gh,
+    testthat (>= 3.0.0),
+    usethis
 Config/testthat/edition: 3

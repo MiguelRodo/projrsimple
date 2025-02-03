@@ -29,6 +29,12 @@
 #'   if `NULL`.
 #'
 #' @return Invisibly returns `TRUE` when complete.
+#' 
+#' @details 
+#' To avoid accidental deletion of outputs,
+#' `clear_output_and_docs` is by default `FALSE`.
+#' However, for a clean run, it is recommended to set `clear_output_and_docs`
+#' to `TRUE`.
 #'
 #' @examples
 #' \dontrun{
@@ -152,7 +158,7 @@ projr_run <- function(scripts = NULL,
     }
     return(invisible(FALSE))
   }
-  path_dir <- if (is.null(path_dir)) "_output" else path_dir
+  path_dir <- if (is.null(path_dir)) path_default else path_dir
   if (dir.exists(path_dir)) {
     unlink(path_dir, recursive = TRUE)
   }
