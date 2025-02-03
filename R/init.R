@@ -143,7 +143,7 @@ projr_init <- function(dir_raw_data = "_raw_data",
   
   # Prompt for user.name if missing or empty.
   if (is.null(name_cfg) || name_cfg == "") {
-    if (Sys.getenv("GITHUB_ACTIONS") = "true") {
+    if (Sys.getenv("GITHUB_ACTIONS") == "true") {
       gert::git_config_global_set("user.name", "GitHub Actions")
     } else {
       choice <- utils::menu(c("Yes", "No"), 
@@ -164,7 +164,7 @@ projr_init <- function(dir_raw_data = "_raw_data",
   
   # Prompt for user.email if missing or empty.
   if (is.null(email_cfg) || email_cfg == "") {
-    if (Sys.getenv("GITHUB_ACTIONS") = "true") {
+    if (Sys.getenv("GITHUB_ACTIONS") == "true") {
       gert::git_config_global_set("user.email", "filler-email@projr-test.com")
     } else {
       choice <- utils::menu(c("Yes", "No"), 
