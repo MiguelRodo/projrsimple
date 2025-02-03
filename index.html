@@ -32,6 +32,12 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="articles/intro.html">intro</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -50,7 +56,7 @@
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of projrsimple is to make it easy to run a clean project workflow.</p>
+<p>The goal of <code>projrsimple</code> is to make it easy to run a clean project workflow.</p>
 <p>It helps you initialise a reproducible project structure with pre‐defined directories, run analysis scripts, and ensure clean output directories with minimal effort.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -82,89 +88,7 @@
 <div class="section level2">
 <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a>
 </h2>
-<div class="section level3">
-<h3 id="project-initialisation-with-projr_init">Project Initialisation with <code>projr_init</code>
-<a class="anchor" aria-label="anchor" href="#project-initialisation-with-projr_init"></a>
-</h3>
-<p>The function <code>projr_init</code> is designed to help you quickly set up a standard project<br>
-structure. It will (all of these features are optional):</p>
-<ul>
-<li>
-<p><strong>Create Standard Directories:</strong></p>
-<p>By default, it creates directories for:</p>
-<ul>
-<li>Raw data: <code>_raw_data</code>
-</li>
-<li>Temporary/cache files: <code>_tmp</code>
-</li>
-<li>Rendered documents: <code>docs</code>
-</li>
-<li>Final outputs: <code>_output</code>
-</li>
-<li>Raw (non‐rendered) docs: <code>_reference</code>
-</li>
-</ul>
-<p>All of these directory names are fully customizable by supplying your own values<br>
-(or you can set any to <code>NULL</code> if you don’t want that directory).</p>
-</li>
-<li>
-<p><strong>Initialise a Git Repository:</strong></p>
-<p>If you choose, <code>projr_init</code> can initialise a Git repository in your project. It will automatically add the cache directory (by default <code>_tmp</code>) to your <code>.gitignore</code> to avoid committing<br>
-temporary files, and (if enabled) will add and commit any changes.<br><em>Note:</em> To push your repository to GitHub, you’ll need a GitHub account and must<br>
-ensure that R is configured with your personal access token (PAT).</p>
-</li>
-<li>
-<p><strong>Create a README File:</strong></p>
-<p>A default README is created with instructions on how to run your analyses,<br>
-reproduce the results, and a description of the directory structure. You can<br>
-customise or remove this by setting the corresponding parameter to <code>FALSE</code>.</p>
-</li>
-<li>
-<p><strong>Connect to GitHub (Optional):</strong></p>
-<p>If desired, you can instruct <code>projr_init</code> to connect your local Git repository<br>
-to GitHub (using <code><a href="https://usethis.r-lib.org/reference/use_github.html" class="external-link">usethis::use_github()</a></code>). The repository can be created as private<br>
-by default, with a message reminding you that you must add collaborators manually<br>
-via GitHub’s settings.</p>
-</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="running-analyses-with-projr_run">Running Analyses with <code>projr_run</code>
-<a class="anchor" aria-label="anchor" href="#running-analyses-with-projr_run"></a>
-</h3>
-<p>After you have initialised your project, you can use <code>projr_run</code> to execute your<br>
-analyses. By default:</p>
-<ul>
-<li>
-<p><strong>Script Detection and Execution:</strong></p>
-<p>All scripts in your working directory with extensions <code>.R</code>, <code>.Rmd</code>/<code>.rmd</code>, and<br><code>.qmd</code> are run automatically. In the presence of a Quarto project (a file named<br><code>_quarto.yml</code>), individual <code>.qmd</code> files may be skipped in favour of running the<br>
-project as a whole.</p>
-</li>
-<li>
-<p><strong>Copying Generated Documents:</strong></p>
-<p>The function will copy any generated documents (typically <code>.html</code>, <code>.pdf</code>, or<br><code>.docx</code>) to the <code>docs</code> directory. This behavior is optional.</p>
-</li>
-<li>
-<p><strong>Output Directory Management:</strong></p>
-<p>Optionally, the output directory (by default <code>_output</code>) is cleared before running<br>
-all the scripts.</p>
-</li>
-<li>
-<p><strong>Selective Execution:</strong></p>
-<p>If you prefer, you can select which scripts to run by providing a character<br>
-vector of filenames. This enables you to run only a subset of your scripts.</p>
-</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="multiple-pipelines">Multiple pipelines<a class="anchor" aria-label="anchor" href="#multiple-pipelines"></a>
-</h3>
-<p>For more advanced workflows, you can run <code>projr_run</code> multiple times to create<br>
-separate “pipelines”. For example, you might run one pipeline that processes raw data<br>
-and another that generates reports, each using different script selections and<br>
-output/document directories. This modular approach allows you to flexibly manage<br>
-complex projects with multiple stages.</p>
-</div>
+<p>See the <a href="https://miguelrodo.github.io/projrsimple/">package website</a> or view the vignette (<code><a href="articles/intro.html">vignette("intro", package = "projrsimple")</a></code>) for more details.</p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
@@ -195,7 +119,7 @@ complex projects with multiple stages.</p>
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://creativecommons.org/licenses/by/4.0" class="external-link">CC BY 4.0</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 
