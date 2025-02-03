@@ -30,7 +30,7 @@ projr_init(
 \item{dir_output}{Character. Directory for final outputs. Defaults to
 \code{"_output"}. Set to \code{NULL} to skip.}
 
-\item{dir_reference}{Character. Directory for non‐rendered docs. Defaults to
+\item{dir_reference}{Character. Directory for non-rendered docs. Defaults to
 \code{"_reference"}. Set to \code{NULL} to skip.}
 
 \item{init_git}{Logical. If \code{TRUE} (the default), initialises a Git repository
@@ -56,7 +56,7 @@ Invisibly returns \code{TRUE} when complete.
 \description{
 \code{projr_init} creates a standard project structure by making several
 directories for raw data, temporary/cache files, final outputs, rendered docs,
-and raw (non‐rendered) docs. It also can initialise a Git repository (adding
+and raw (non-rendered) docs. It also can initialise a Git repository (adding
 the cache directory to \code{.gitignore} and optionally adding & committing all
 changes), write a README file with recommended project instructions, and, if
 desired, connect the project to GitHub.

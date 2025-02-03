@@ -32,7 +32,8 @@ remotes::install_github("MiguelRodo/projrsimple")
 2.  Open an R session in your project directory (folder where you want
     to work).
 3.  Run `projr_init()` to initialise your project.
-4.  Write code in scripts in the project directory.
+4.  Write code in scripts (`.R`, `.Rmd`, `.qmd` and/or Quarto projects)
+    in the project directory.
 5.  Run `projr_run` to execute all scripts. Save outputs to `_output`
     directory.
 6.  View rendered documents in the `docs` directory.
@@ -149,4 +150,4 @@ To cite `projrsimple` in publications use:
 @Misc{rodo, title = {projrsimple: Initialise and run a simple project
 workflow}, author = {Miguel Rodo}, url =
 {<https://github.com/MiguelRodo/projrsimple/#readme>}, abstract =
-{Initialise and run a simple project workflow}, version = {0.0.0-1}, }
+{Initialise and run a simple R project workflow}, version = {0.0.0-1}, }
