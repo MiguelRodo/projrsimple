@@ -269,13 +269,14 @@ projr_run <- function(scripts = NULL,
   switch(
     .get_script_type(script),
     R   = {
+      rscript_path <- file.path(R.home("bin"), "Rscript")
       script <- shQuote(normalizePath(script))
       if (!is.null(dir_exec)) {
         old_wd <- getwd()
         on.exit(setwd(old_wd))
         setwd(dir_exec)
       }
-      system2("Rscript", args = script)
+      system2(rscript_path, args = script)
     },
     qmd = {
       if (!is.null(dir_exec)) {
