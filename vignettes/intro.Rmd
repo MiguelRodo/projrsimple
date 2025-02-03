@@ -1,0 +1,147 @@
+---
+title: "intro"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{intro}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(projrsimple)
+```
+
+## Introduciton
+
+The goal of `projrsimple` is to make it easy to run a clean project workflow.
+
+It helps you initialise a reproducible project structure with pre‐defined
+directories, run analysis scripts, and ensure clean output directories
+with minimal effort.
+
+## Installation
+
+You can install the development version of `projrsimple` like so:
+
+``` r
+if (!requireNamespace("remotes", quietly = TRUE)) {
+  install.packages("remotes")
+}
+remotes::install_github("MiguelRodo/projrsimple")
+```
+
+## TL;DR
+
+1. Install `projrsimple` (see above).
+2. Open an R session in your project directory (folder where you want to work).
+3. Run `projr_init()` to initialise your project.
+4. Write code in scripts (`.R`, `.Rmd`, `.qmd` and/or Quarto projects) in the project directory.
+5. Run `projr_run` to execute all scripts. Save outputs to `_output` directory.
+6. View rendered documents in the `docs` directory.
+
+To connect to GitHub automatically, run `projr_init(init_github = TRUE)` (step 3) *after* the following steps:
+
+1. Create a GitHub account ([link](https://www.github.com)).
+2. Set up a personal access token (PAT) in R ([instructions](https://happygitwithr.com/https-pat#tldr)).
+
+## Details
+
+### Project Initialisation with `projr_init`
+
+The function `projr_init` is designed to help you quickly set up a standard project  
+structure.
+It will (all of these features are optional):
+
+- **Create Standard Directories:**  
+
+  By default, it creates directories for:
+  - Raw data: `_raw_data`
+  - Rendered documents: `docs`
+  - Final outputs: `_output`
+  - Temporary/cache files: `_tmp`
+  - Raw (non‐rendered) docs: `_reference`
+  
+  You can supply your own values (provide `NULL` to skip a directory).  
+
+- **Initialise a Git Repository:**  
+
+  `projr_init` can initialise a Git repository in your project.
+  It will automatically add the  cache directory (by default `_tmp`) to your
+  `.gitignore` to avoid committing  
+  temporary files, and (if enabled) will add and commit any changes.  
+  *Note:* To push your repository to GitHub, you’ll need a GitHub account and must  
+  ensure that R is configured with your personal access token (PAT).
+
+- **Create a README File:**  
+
+  A default README is created with instructions on how to run your analyses
+  using `projrsimple`, as well as a brief description of the project,
+  its structure and empty fields for links and project details.
+
+- **Connect to GitHub:**
+
+  `projr_init` can connect your local Git repository to GitHub.
+  The repository is private by default.
+
+### Running Analyses with `projr_run`
+
+After you have initialised your project, you can use `projr_run` to execute your  
+analyses. By default:
+
+- **Script Detection and Execution:**  
+
+  All scripts in your working directory with extensions `.R`, `.Rmd`/`.rmd`, and  
+  `.qmd` are run automatically. If a Quarto project is detected
+  (`_quarto.yml` exists), then a Quarto project is rendered.
+
+- **Copying Generated Documents:**  
+
+  The function will copy any generated documents (typically `.html`, `.pdf`, or  
+  `.docx`) to the `docs` directory.
+
+- **Output Directory Management:**  
+
+  Optionally, the output directory (by default `_output`) is cleared before running  
+  all the scripts.
+  By default, this is `FALSE` (to avoid unintended deletions), but should
+  be set to `TRUE` to ensure clean runs.
+
+- **Selective Execution:**  
+
+  You can specify a subset of scripts to run, rather
+  than all found in the `scripts` directory.
+
+### Multiple pipelines
+
+For long-running and/or complex workflows, you can run `projr_run` multiple times to create  
+separate "pipelines".
+For example, you might run one pipeline that processes raw data  
+and another that generates reports, each using different script selections and  
+output/document directories.
+This modular approach allows you to flexibly manage  
+complex projects with multiple stages.
+
+## Citation
+
+To cite `projrsimple` in publications use:
+
+> **Miguel Rodo** (2024). *projrsimple: Initialise and run a simple project workflow.* Version 1.0.0. Available at: [https://github.com/MiguelRodo/projrsimple](https://github.com/MiguelRodo/projrsimple/#readme).
+
+Alternatively, in **BibTeX** format:
+
+```bibtex
+@Misc{rodo,
+  title = {projrsimple: Initialise and run a simple project workflow},
+  author = {Miguel Rodo},
+  url = {https://github.com/MiguelRodo/projrsimple/#readme},
+  abstract = {Initialise and run a simple R project workflow},
+  version = {1.0.0},
+}
+```

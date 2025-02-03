@@ -27,3 +27,5 @@
 ^\.github$
 ^_pkgdown\.yml$
 ^pkgdown$
+^doc$
+^Meta$
