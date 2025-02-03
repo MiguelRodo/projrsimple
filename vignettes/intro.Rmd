@@ -118,7 +118,7 @@ analyses. By default:
   You can specify a subset of scripts to run, rather
   than all found in the `scripts` directory.
 
-### Multiple pipelines
+### Multiple Pipelines
 
 For long-running and/or complex workflows, you can run `projr_run` multiple times to create  
 separate "pipelines".
@@ -127,6 +127,15 @@ and another that generates reports, each using different script selections and
 output/document directories.
 This modular approach allows you to flexibly manage  
 complex projects with multiple stages.
+
+For example:
+
+```{r, eval=FALSE}
+# processed data
+projr_run("process-data.R", dir_output = "_output/processed_data", dir_docs = "docs/processed_data")
+# analyse data
+projr_run("analyse-data.R", output_dir = "_output/analysis", dir_docs = "docs/analysis")
+```
 
 ## Citation
 
