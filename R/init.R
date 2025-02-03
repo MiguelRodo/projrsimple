@@ -119,9 +119,6 @@ projr_init <- function(dir_raw_data = "_raw_data",
 # Helper: Ensure Git user configuration is set
 # Helper: Ensure Git user configuration is set
 .ensure_git_config <- function() {
-  if (!interactive()) {
-    return(invisible(FALSE))
-  }
   # Attempt to get the Git configuration table.
   gitconfig_tbl <- tryCatch(
     gert::git_config(),
@@ -146,35 +143,43 @@ projr_init <- function(dir_raw_data = "_raw_data",
   
   # Prompt for user.name if missing or empty.
   if (is.null(name_cfg) || name_cfg == "") {
-    choice <- utils::menu(c("Yes", "No"), 
-      title = "Your Git user name is not set. Would you like to set it now?")
-    if (choice == 1) {
-      user_name <- readline("Please enter your Git user name: ")
-      if (nchar(user_name) > 0) {
-        gert::git_config_global_set("user.name", user_name)
-        message("Git user.name set to: ", user_name)
-      } else {
-        stop("Git user.name is required for committing changes.")
-      }
+    if (Sys.getenv("GITHUB_ACTIONS") = "true") {
+      gert::git_config_global_set("user.name", "GitHub Actions")
     } else {
-      stop("Git user.name is required. Please configure it and try again.")
+      choice <- utils::menu(c("Yes", "No"), 
+        title = "Your Git user name is not set. Would you like to set it now?")
+      if (choice == 1) {
+        user_name <- readline("Please enter your Git user name: ")
+        if (nchar(user_name) > 0) {
+          gert::git_config_global_set("user.name", user_name)
+          message("Git user.name set to: ", user_name)
+        } else {
+          stop("Git user.name is required for committing changes.")
+        }
+      } else {
+        stop("Git user.name is required. Please configure it and try again.")
+      }
     }
   }
   
   # Prompt for user.email if missing or empty.
   if (is.null(email_cfg) || email_cfg == "") {
-    choice <- utils::menu(c("Yes", "No"), 
-      title = "Your Git user email is not set. Would you like to set it now?")
-    if (choice == 1) {
-      user_email <- readline("Please enter your Git user email: ")
-      if (nchar(user_email) > 0) {
-        gert::git_config_global_set("user.email", user_email)
-        message("Git user.email set to: ", user_email)
-      } else {
-        stop("Git user.email is required for committing changes.")
-      }
+    if (Sys.getenv("GITHUB_ACTIONS") = "true") {
+      gert::git_config_global_set("user.email", "filler-email@projr-test.com")
     } else {
-      stop("Git user.email is required. Please configure it and try again.")
+      choice <- utils::menu(c("Yes", "No"), 
+        title = "Your Git user email is not set. Would you like to set it now?")
+      if (choice == 1) {
+        user_email <- readline("Please enter your Git user email: ")
+        if (nchar(user_email) > 0) {
+          gert::git_config_global_set("user.email", user_email)
+          message("Git user.email set to: ", user_email)
+        } else {
+          stop("Git user.email is required for committing changes.")
+        }
+      } else {
+        stop("Git user.email is required. Please configure it and try again.")
+      }
     }
   }
   invisible(TRUE)
