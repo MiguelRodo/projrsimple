@@ -74,6 +74,9 @@ projr_run <- function(scripts = NULL,
   .clear_dir(clear_output_and_docs, dir_docs, copy_docs, "docs")
 
   # Run each script, then copy its docs
+  if (!is.null(dir_exec)) {
+    message("Executing scripts in directory: ", dir_exec)
+  }
   for (i in seq_along(scripts_run)) {
     .run_script(scripts_run[[i]], dir_exec)
     .copy_docs(scripts_run[[i]], copy_docs, dir_docs)
@@ -266,16 +269,13 @@ projr_run <- function(scripts = NULL,
   switch(
     .get_script_type(script),
     R   = {
+      script <- shQuote(normalizePath(script))
       if (!is.null(dir_exec)) {
-        # Build an expression that sets the working directory and sources the script.
-        expr <- sprintf("setwd('%s'); source('%s')",
-                        dir_exec,
-                        normalizePath(script))
-        system2("Rscript", args = c("-e", shQuote(expr)))
-      } else {
-        # Run the script normally if no execution directory is specified.
-        system2("Rscript", args = normalizePath(script))
+        old_wd <- getwd()
+        on.exit(setwd(old_wd))
+        setwd(dir_exec)
       }
+      system2("Rscript", args = script)
     },
     qmd = {
       if (!is.null(dir_exec)) {
