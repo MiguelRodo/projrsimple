@@ -1,6 +1,6 @@
 Package: projrsimple
 Title: Initialise and run a simple project workflow
-Version: 0.0.1-2
+Version: 1.0.0
 Authors@R: 
     person("Miguel", "Rodo", , "miguel.rodo@uct.ac.za", role = c("aut", "cre"))
 Maintainer: Miguel Rodo <miguel.rodo@uct.ac.za>

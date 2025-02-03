@@ -147,7 +147,18 @@ complex projects with multiple stages.
 
 To cite `projrsimple` in publications use:
 
-@Misc{rodo, title = {projrsimple: Initialise and run a simple project
-workflow}, author = {Miguel Rodo}, url =
-{<https://github.com/MiguelRodo/projrsimple/#readme>}, abstract =
-{Initialise and run a simple R project workflow}, version = {0.0.0-1}, }
+> **Miguel Rodo** (2024). *projrsimple: Initialise and run a simple
+> project workflow.* Version 1.0.0. Available at:
+> [https://github.com/MiguelRodo/projrsimple](https://github.com/MiguelRodo/projrsimple/#readme).
+
+Alternatively, in **BibTeX** format:
+
+``` bibtex
+@Misc{rodo,
+  title = {projrsimple: Initialise and run a simple project workflow},
+  author = {Miguel Rodo},
+  url = {https://github.com/MiguelRodo/projrsimple/#readme},
+  abstract = {Initialise and run a simple R project workflow},
+  version = {1.0.0},
+}
+```
