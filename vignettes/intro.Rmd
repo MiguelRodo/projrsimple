@@ -134,7 +134,7 @@ For example:
 # processed data
 projr_run("process-data.R", dir_output = "_output/processed_data", dir_docs = "docs/processed_data")
 # analyse data
-projr_run("analyse-data.R", output_dir = "_output/analysis", dir_docs = "docs/analysis")
+projr_run("analyse-data.R", dir_output = "_output/analysis", dir_docs = "docs/analysis")
 ```
 
 ## Citation
