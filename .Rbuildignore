@@ -25,3 +25,5 @@
 ^CITATION\.cff$
 
 ^\.github$
+^_pkgdown\.yml$
+^pkgdown$

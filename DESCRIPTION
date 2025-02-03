@@ -8,7 +8,7 @@ Description: This package provides tools for initializing and managing
     projects in R. It includes functions for setting up project directories,
     running scripts, and rendering documents.
 License: CC BY 4.0
-URL: https://github.com/MiguelRodo/projrsimple/#readme
+URL: https://github.com/MiguelRodo/projrsimple/#readme, https://miguelrodo.github.io/projrsimple/
 BugReports: https://github.com/MiguelRodo/projrsimple/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
