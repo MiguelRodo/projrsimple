@@ -119,6 +119,9 @@ projr_init <- function(dir_raw_data = "_raw_data",
 # Helper: Ensure Git user configuration is set
 # Helper: Ensure Git user configuration is set
 .ensure_git_config <- function() {
+  if (!interactive()) {
+    return(invisible(FALSE))
+  }
   # Attempt to get the Git configuration table.
   gitconfig_tbl <- tryCatch(
     gert::git_config(),
