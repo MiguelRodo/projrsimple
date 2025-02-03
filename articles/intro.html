@@ -196,7 +196,7 @@ the <code>scripts</code> directory.</p>
 </ul>
 </div>
 <div class="section level3">
-<h3 id="multiple-pipelines">Multiple pipelines<a class="anchor" aria-label="anchor" href="#multiple-pipelines"></a>
+<h3 id="multiple-pipelines">Multiple Pipelines<a class="anchor" aria-label="anchor" href="#multiple-pipelines"></a>
 </h3>
 <p>For long-running and/or complex workflows, you can run
 <code>projr_run</code> multiple times to create<br>
@@ -207,6 +207,12 @@ selections and<br>
 output/document directories. This modular approach allows you to
 flexibly manage<br>
 complex projects with multiple stages.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># processed data</span></span>
+<span><span class="fu"><a href="../reference/projr_run.html">projr_run</a></span><span class="op">(</span><span class="st">"process-data.R"</span>, dir_output <span class="op">=</span> <span class="st">"_output/processed_data"</span>, dir_docs <span class="op">=</span> <span class="st">"docs/processed_data"</span><span class="op">)</span></span>
+<span><span class="co"># analyse data</span></span>
+<span><span class="fu"><a href="../reference/projr_run.html">projr_run</a></span><span class="op">(</span><span class="st">"analyse-data.R"</span>, dir_output <span class="op">=</span> <span class="st">"_output/analysis"</span>, dir_docs <span class="op">=</span> <span class="st">"docs/analysis"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -218,13 +224,13 @@ complex projects with multiple stages.</p>
 run a simple project workflow.</em> Version 1.0.0. Available at: <a href="https://github.com/MiguelRodo/projrsimple/#readme" class="external-link">https://github.com/MiguelRodo/projrsimple</a>.</p>
 </blockquote>
 <p>Alternatively, in <strong>BibTeX</strong> format:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="va">@Misc</span>{<span class="ot">rodo</span>,</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="dt">title</span> = {projrsimple: Initialise and run a simple project workflow},</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="dt">author</span> = {Miguel Rodo},</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://github.com/MiguelRodo/projrsimple/#readme},</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="dt">abstract</span> = {Initialise and run a simple R project workflow},</span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="dt">version</span> = {1.0.0},</span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="va">@Misc</span>{<span class="ot">rodo</span>,</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="dt">title</span> = {projrsimple: Initialise and run a simple project workflow},</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="dt">author</span> = {Miguel Rodo},</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://github.com/MiguelRodo/projrsimple/#readme},</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="dt">abstract</span> = {Initialise and run a simple R project workflow},</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="dt">version</span> = {1.0.0},</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>}</span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
