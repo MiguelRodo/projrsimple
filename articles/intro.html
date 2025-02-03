@@ -210,27 +210,119 @@ complex projects with multiple stages.</p>
 <p>For example:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># processed data</span></span>
-<span><span class="fu"><a href="../reference/projr_run.html">projr_run</a></span><span class="op">(</span><span class="st">"process-data.R"</span>, dir_output <span class="op">=</span> <span class="st">"_output/processed_data"</span>, dir_docs <span class="op">=</span> <span class="st">"docs/processed_data"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/projr_run.html">projr_run</a></span><span class="op">(</span></span>
+<span>  scripts <span class="op">=</span> <span class="st">"process-data.R"</span>,</span>
+<span>  dir_output <span class="op">=</span> <span class="st">"_output/processed_data"</span>,</span>
+<span>  dir_docs <span class="op">=</span> <span class="st">"docs/processed_data"</span>,</span>
+<span>  clear_output_and_docs <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co"># analyse data</span></span>
-<span><span class="fu"><a href="../reference/projr_run.html">projr_run</a></span><span class="op">(</span><span class="st">"analyse-data.R"</span>, dir_output <span class="op">=</span> <span class="st">"_output/analysis"</span>, dir_docs <span class="op">=</span> <span class="st">"docs/analysis"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/projr_run.html">projr_run</a></span><span class="op">(</span></span>
+<span>  scripts <span class="op">=</span> <span class="st">"analyse-data.R"</span>,</span>
+<span>  dir_output <span class="op">=</span> <span class="st">"_output/analysis"</span>,</span>
+<span>  dir_docs <span class="op">=</span> <span class="st">"docs/analysis"</span>,</span>
+<span>  clear_output_and_docs <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Since separate <code>output</code> and <code>docs</code> directories
+are used for the different pipelines, the analysis pipeline can be run
+cleanly (clear <code>output</code> and <code>docs</code> directories)
+without affecting the processed data pipeline.</p>
+</div>
+<div class="section level3">
+<h3 id="execution-directory">Execution Directory<a class="anchor" aria-label="anchor" href="#execution-directory"></a>
+</h3>
+<p>Keeping scripts in a sub-directory (e.g. <code>src/</code> or
+<code>scripts/</code>) can improve organisation, but may complicate the
+execution directory when running <code>Quarto</code> and
+<code>RMarkdown</code> documents.</p>
+<p>The execution directory is the directory where <code>R</code> thinks
+it is when running scripts.</p>
+<p>For <code>Quarto</code> and <code>RMarkdown</code>, the execution
+directory is the directory of the <code>.Rmd</code>/<code>.qmd</code>
+file. So, if we run
+<code>quarto::quarto_render("scripts/analysis.qmd")</code> from the
+project directory, the execution directory is actually
+<code>scripts/</code>. For example, if we run
+<code>quarto::quarto_render("scripts/analysis.qmd")</code> from the
+project directory, the execution directory is <code>scripts/</code>.</p>
+<p>This has two possible problems:</p>
+<ul>
+<li>The user needs to be aware of this, and specify all paths within the
+<code>Quarto</code>/<code>RMarkdown</code> doc relative to
+<code>scripts/</code>, rather than the project directory. This is not
+typically what people expect.</li>
+<li>This is not the same behaviour as <code>R</code> scripts. If we run
+<code>source("scripts/analysis.R")</code>, the execution directory is
+not <code>scripts/</code> but the project directory.</li>
+</ul>
+<p>For this reason, to prevent surprises, if you use <code>Quarto</code>
+or <code>RMarkdown</code> it is recommended to keep all scripts in the
+project directory.</p>
+<div class="section level4">
+<h4 id="workarounds">Workarounds<a class="anchor" aria-label="anchor" href="#workarounds"></a>
+</h4>
+<p>However, if you would like to keep
+<code>Quarto</code>/<code>RMarkdown</code> docs in a subdirectory, you
+have the following two workarounds:</p>
+<div class="section level5">
+<h5 id="option-1-preferred-use-knitr-and-specify-the-execution-directory">Option 1 (preferred): Use <code>knitr</code> and specify the
+execution directory<a class="anchor" aria-label="anchor" href="#option-1-preferred-use-knitr-and-specify-the-execution-directory"></a>
+</h5>
+<p>To ensure consistency between <code>projr_run</code> and manual
+knitting, place the following at the very top of your
+<code>.Rmd</code>/<code>.qmd</code> file (within a setup chunk, of
+course):</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_knit.html" class="external-link">opts_knit</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>root.dir <span class="op">=</span> <span class="st">"/your/desired/path"</span><span class="op">)</span></span></code></pre></div>
+<p>For example, if the <code>Quarto</code> doc is in the
+<code>scripts</code> directory but you want the execution directory to
+be the project directory, replace <code>"/your/desired/path"</code> with
+<code>".."</code> (note two dots - this means “one level up”).</p>
+</div>
+<div class="section level5">
+<h5 id="option-2-specify-the-execution-directory-in-projr_run">Option 2: Specify the execution directory in
+<code>projr_run</code><a class="anchor" aria-label="anchor" href="#option-2-specify-the-execution-directory-in-projr_run"></a>
+</h5>
+<p>You can specify the <code>dir_exec</code> argument in
+<code>projr_run</code> to set the execution directory. For example:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/projr_run.html">projr_run</a></span><span class="op">(</span></span>
+<span>  scripts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"scripts/data_processing.R"</span>, <span class="st">"scripts/analysis.qmd"</span><span class="op">)</span>,</span>
+<span>  dir_exec <span class="op">=</span> <span class="st">"."</span> <span class="co"># note only one dot</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>This forces the execution directory to be the project directory for
+both the <code>R</code> script and <code>Quarto</code> doc, even though
+the scripts are in a subdirectory.</p>
+<p>The problem with this approach is that the
+<code>Knit</code>/<code>Render</code> button in <code>RStudio</code>
+will still render the <code>Quarto</code>/<code>RMarkdown</code> docs
+with the parent directory as the execution directory
+(<code>scripts/</code>, in this case). This is the reason
+<code>Option 1</code> is preferred.</p>
+<p>On the other hand, if you wanted the <code>R</code> script
+<code>scripts/data_processing.R</code> to have <code>scripts/</code> as
+the execution directory, then using <code>projr_run</code> with
+<code>dir_exec = "scripts/"</code> would be a good approach.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
-<p>To cite <code>projrsimple</code> in publications use:</p>
+<p>To cite <code>projrsimple</code> in publications, use:</p>
 <blockquote>
 <p><strong>Miguel Rodo</strong> (2024). <em>projrsimple: Initialise and
 run a simple project workflow.</em> Version 1.0.0. Available at: <a href="https://github.com/MiguelRodo/projrsimple/#readme" class="external-link">https://github.com/MiguelRodo/projrsimple</a>.</p>
 </blockquote>
 <p>Alternatively, in <strong>BibTeX</strong> format:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="va">@Misc</span>{<span class="ot">rodo</span>,</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="dt">title</span> = {projrsimple: Initialise and run a simple project workflow},</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="dt">author</span> = {Miguel Rodo},</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://github.com/MiguelRodo/projrsimple/#readme},</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="dt">abstract</span> = {Initialise and run a simple R project workflow},</span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="dt">version</span> = {1.0.0},</span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bibtex"><code class="sourceCode bibtex"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="va">@Misc</span>{<span class="ot">rodo</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="dt">title</span> = {projrsimple: Initialise and run a simple project workflow},</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="dt">author</span> = {Miguel Rodo},</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="dt">url</span> = {https://github.com/MiguelRodo/projrsimple/#readme},</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="dt">abstract</span> = {Initialise and run a simple R project workflow},</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="dt">version</span> = {1.0.0},</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>}</span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
