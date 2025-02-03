@@ -47,9 +47,9 @@ To connect to GitHub automatically, run `projr_init(init_github = TRUE)`
 
 ## Details
 
-See the [package website](https://miguelrodo.github.io/projrsimple/) or
-view the vignette (`vignette("intro", package = "projrsimple")`) for
-more details.
+For details, view the introductory article on the [package
+website](https://miguelrodo.github.io/projrsimple/articles/intro.html)
+or as a vignette (`vignette("intro", package = "projrsimple")`).
 
 ## Citation
 
