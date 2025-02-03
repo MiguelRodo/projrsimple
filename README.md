@@ -59,7 +59,7 @@ To cite `projrsimple` in publications use:
 > project workflow.* Version 1.0.0. Available at:
 > [https://github.com/MiguelRodo/projrsimple](https://github.com/MiguelRodo/projrsimple/#readme).
 
-Alternatively, in **BibTeX** format:
+Alternatively, in `BibTeX` format:
 
 ``` bibtex
 @Misc{rodo,
