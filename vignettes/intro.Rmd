@@ -132,14 +132,100 @@ For example:
 
 ```{r, eval=FALSE}
 # processed data
-projr_run("process-data.R", dir_output = "_output/processed_data", dir_docs = "docs/processed_data")
+projr_run(
+  scripts = "process-data.R",
+  dir_output = "_output/processed_data",
+  dir_docs = "docs/processed_data",
+  clear_output_and_docs = TRUE
+)
 # analyse data
-projr_run("analyse-data.R", dir_output = "_output/analysis", dir_docs = "docs/analysis")
+projr_run(
+  scripts = "analyse-data.R",
+  dir_output = "_output/analysis",
+  dir_docs = "docs/analysis",
+  clear_output_and_docs = TRUE
+)
 ```
+
+Since separate `output` and `docs` directories are used for the different pipelines,
+the analysis pipeline can be run cleanly (clear `output` and `docs` directories) without
+affecting the processed data pipeline.
+
+### Execution Directory
+
+Keeping scripts in a sub-directory (e.g. `src/` or `scripts/`)
+can improve organisation, but may complicate the execution directory
+when running `Quarto` and `RMarkdown` documents.
+
+The execution directory is the directory where `R` thinks it is when running scripts.
+
+For `Quarto` and `RMarkdown`, the execution directory is the directory of the `.Rmd`/`.qmd` file.
+So, if we run `quarto::quarto_render("scripts/analysis.qmd")` from the project directory,
+the execution directory is actually `scripts/`.
+For example, if we run `quarto::quarto_render("scripts/analysis.qmd")` from the project directory,
+the execution directory is `scripts/`.
+
+This has two possible problems:
+
+- The user needs to be aware of this, and specify all paths
+within the `Quarto`/`RMarkdown` doc relative to `scripts/`,
+rather than the project directory. This is not typically what people
+expect.
+- This is not the same behaviour as `R` scripts. If we run `source("scripts/analysis.R")`,
+the execution directory is not `scripts/` but the project directory.
+
+For this reason, to prevent surprises, if you use
+`Quarto` or `RMarkdown` it is recommended to keep all scripts in the
+project directory.
+
+#### Workarounds
+
+However, if you would like to keep `Quarto`/`RMarkdown` docs in a subdirectory,
+you have the following two workarounds:
+
+##### Option 1 (preferred): Use `knitr` and specify the execution directory
+
+To ensure consistency between `projr_run` and manual knitting, 
+place the following at the very top of your `.Rmd`/`.qmd` file
+(within a setup chunk, of course):
+
+```{r, eval=FALSE}
+knitr::opts_knit$set(root.dir = "/your/desired/path")
+```
+
+For example, if the `Quarto` doc is in the `scripts` directory but
+you want the execution directory to be the project directory, replace
+`"/your/desired/path"` with `".."` (note two dots - this means "one level up").
+
+##### Option 2: Specify the execution directory in `projr_run`
+
+You can specify the `dir_exec` argument in `projr_run` to set the execution directory.
+For example:
+
+```{r, eval=FALSE}
+projr_run(
+  scripts = c("scripts/data_processing.R", "scripts/analysis.qmd"),
+  dir_exec = "." # note only one dot
+)
+```
+
+This forces the execution directory to be the project directory for 
+both the `R` script and `Quarto` doc, even though the
+scripts are in a subdirectory.
+
+The problem with this approach is that the `Knit`/`Render` button
+in `RStudio` will still render the `Quarto`/`RMarkdown` docs
+with the parent directory as the execution directory (`scripts/`, 
+in this case).
+This is the reason `Option 1` is preferred.
+
+On the other hand, if you wanted the `R` script `scripts/data_processing.R`
+to have `scripts/` as the execution directory, then using `projr_run` 
+with `dir_exec = "scripts/"` would be a good approach.
 
 ## Citation
 
-To cite `projrsimple` in publications use:
+To cite `projrsimple` in publications, use:
 
 > **Miguel Rodo** (2024). *projrsimple: Initialise and run a simple project workflow.* Version 1.0.0. Available at: [https://github.com/MiguelRodo/projrsimple](https://github.com/MiguelRodo/projrsimple/#readme).
 

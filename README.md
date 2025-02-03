@@ -53,7 +53,7 @@ or as a vignette (`vignette("intro", package = "projrsimple")`).
 
 ## Citation
 
-To cite `projrsimple` in publications use:
+To cite `projrsimple` in publications, use:
 
 > **Miguel Rodo** (2024). *projrsimple: Initialise and run a simple
 > project workflow.* Version 1.0.0. Available at:

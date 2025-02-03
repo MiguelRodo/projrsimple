@@ -267,11 +267,15 @@ projr_run <- function(scripts = NULL,
     .get_script_type(script),
     R   = {
       if (!is.null(dir_exec)) {
-        old_wd <- getwd()
-        on.exit(setwd(old_wd), add = TRUE)
-        setwd(dir_exec)
+        # Build an expression that sets the working directory and sources the script.
+        expr <- sprintf("setwd('%s'); source('%s')",
+                        dir_exec,
+                        normalizePath(script))
+        system2("Rscript", args = c("-e", shQuote(expr)))
+      } else {
+        # Run the script normally if no execution directory is specified.
+        system2("Rscript", args = normalizePath(script))
       }
-      source(script)
     },
     qmd = {
       if (!is.null(dir_exec)) {
