@@ -16,5 +16,9 @@ Suggests:
     gert,
     gh,
     testthat (>= 3.0.0),
-    usethis
+    usethis,
+    quarto,
+    renv,
+    rmarkdown,
+    withr
 Config/testthat/edition: 3

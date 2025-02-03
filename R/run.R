@@ -12,8 +12,9 @@
 #'    `dir_docs`.
 #' 5. By default, renders the entire Quarto project if `_quarto.yml` is found.
 #'
-#' @param scripts Character vector of script filenames, e.g.
-#'   `c("my_script.R", "my_doc.Rmd")`. If `NULL`, all `.R`, `.Rmd`/`.rmd`, and
+#' @param scripts Character vector of script filenames to execute in `dir_scripts`,
+#'   e.g. `c("my_script.R", "my_doc.Rmd")`.
+#'   If `NULL`, all `.R`, `.Rmd`/`.rmd`, and
 #'   `.qmd` files in `dir_scripts` are used.
 #' @param skip_quarto_project Logical. If `TRUE`, does not render the Quarto
 #'   project, even if `_quarto.yml` is found.
@@ -27,6 +28,12 @@
 #'   Defaults to `"_output"` if `NULL`.
 #' @param dir_docs Directory where final docs are copied. Defaults to `"docs"`
 #'   if `NULL`.
+#' @param dir_docs Directory in which to look for scripts. Defaults to `"docs"`
+#'   if `NULL`.
+#' @param dir_exec Directory in which to execute scripts. Defaults to `NULL`.
+#' For `R` scripts, this is the working directory.
+#' For `.Rmd` and `.qmd` scripts, this is the directory containing the script.
+#' For Quarto projects, this is the working directory.
 #'
 #' @return Invisibly returns `TRUE` when complete.
 #' 

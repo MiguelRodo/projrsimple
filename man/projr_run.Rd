@@ -16,8 +16,9 @@ projr_run(
 )
 }
 \arguments{
-\item{scripts}{Character vector of script filenames, e.g.
-\code{c("my_script.R", "my_doc.Rmd")}. If \code{NULL}, all \code{.R}, \code{.Rmd}/\code{.rmd}, and
+\item{scripts}{Character vector of script filenames to execute in \code{dir_scripts},
+e.g. \code{c("my_script.R", "my_doc.Rmd")}.
+If \code{NULL}, all \code{.R}, \code{.Rmd}/\code{.rmd}, and
 \code{.qmd} files in \code{dir_scripts} are used.}
 
 \item{skip_quarto_project}{Logical. If \code{TRUE}, does not render the Quarto
@@ -35,8 +36,13 @@ directory if \code{NULL}.}
 \item{dir_output}{Directory to clear if \code{clear_output_and_docs = TRUE}.
 Defaults to \code{"_output"} if \code{NULL}.}
 
-\item{dir_docs}{Directory where final docs are copied. Defaults to \code{"docs"}
+\item{dir_docs}{Directory in which to look for scripts. Defaults to \code{"docs"}
 if \code{NULL}.}
+
+\item{dir_exec}{Directory in which to execute scripts. Defaults to \code{NULL}.
+For \code{R} scripts, this is the working directory.
+For \code{.Rmd} and \code{.qmd} scripts, this is the directory containing the script.
+For Quarto projects, this is the working directory.}
 }
 \value{
 Invisibly returns \code{TRUE} when complete.
