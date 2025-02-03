@@ -180,8 +180,9 @@ project directory.
 
 #### Workarounds
 
-However, if you would like to keep `Quarto`/`RMarkdown` docs in a subdirectory,
-you have the following two workarounds:
+However, if you would like to keep `Quarto`/`RMarkdown` docs in a subdirectory
+but use the project directory as the execution directory, you have the following two
+options.
 
 ##### Option 1 (preferred): Use `knitr` and specify the execution directory
 
