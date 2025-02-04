@@ -18,8 +18,13 @@
 ^_projr\.yml$
 ^README\.Rmd$
 ^_dependencies\.R$
+^_pkgdown\.yml$
 ^codemeta\.json$
 ^LICENSE\.md$
+^scratch\.R$
+^test\.R$
+^\.github/
+^\.github$
 # End of projr section
 ^LICENSE\.md$
 ^CITATION\.cff$
@@ -29,3 +34,4 @@
 ^pkgdown$
 ^doc$
 ^Meta$
+
