@@ -25,7 +25,7 @@
 #' @param init_readme Logical. If `TRUE` (the default), creates a README file with
 #'   recommended project instructions.
 #' @param init_github Logical. If `TRUE`, connects the project to GitHub via
-#'   `usethis::use_github()`. Defaults to `FALSE`.
+#'   `usethis::use_github()`. Defaults to `TRUE`.
 #' @param github_private Logical. If `TRUE` (the default) and if GitHub is
 #'   initialised (i.e. when `init_github = TRUE`), the GitHub repository is created
 #'   as private. A message is issued to remind the user that collaborators must be
@@ -64,7 +64,7 @@ projr_init <- function(dir_raw_data = "_raw_data",
                        init_git     = TRUE,
                        git_add_and_commit_all = TRUE,
                        init_readme  = TRUE,
-                       init_github  = FALSE,
+                       init_github  = TRUE,
                        github_private = TRUE) {
 
   # Create the standard directories if requested.

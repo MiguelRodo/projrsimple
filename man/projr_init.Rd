@@ -13,7 +13,7 @@ projr_init(
   init_git = TRUE,
   git_add_and_commit_all = TRUE,
   init_readme = TRUE,
-  init_github = FALSE,
+  init_github = TRUE,
   github_private = TRUE
 )
 }
@@ -43,7 +43,7 @@ and commit all untracked and modified files after Git initialisation.}
 recommended project instructions.}
 
 \item{init_github}{Logical. If \code{TRUE}, connects the project to GitHub via
-\code{usethis::use_github()}. Defaults to \code{FALSE}.}
+\code{usethis::use_github()}. Defaults to \code{TRUE}.}
 
 \item{github_private}{Logical. If \code{TRUE} (the default) and if GitHub is
 initialised (i.e. when \code{init_github = TRUE}), the GitHub repository is created
