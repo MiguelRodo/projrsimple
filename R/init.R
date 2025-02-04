@@ -38,6 +38,8 @@
 #' (adding the cache directory to `.gitignore` and committing changes), and write a
 #' README. If you do not wish to create one or more of the directories, pass
 #' `NULL` for that parameter.
+#' 
+#' @export
 #'
 #' @examples
 #' \dontrun{

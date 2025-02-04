@@ -37,6 +37,8 @@
 #'
 #' @return Invisibly returns `TRUE` when complete.
 #' 
+#' @export
+#' 
 #' @details 
 #' To avoid accidental deletion of outputs,
 #' `clear_output_and_docs` is by default `FALSE`.
