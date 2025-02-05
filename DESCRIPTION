@@ -1,6 +1,6 @@
 Package: projrsimple
 Title: Initialise and run a simple project workflow
-Version: 1.0.3
+Version: 1.0.4
 Authors@R: person("Miguel", "Rodo", , "miguel.rodo@uct.ac.za", role = c("aut", "cre"))
 Maintainer: Miguel Rodo <miguel.rodo@uct.ac.za>
 Description: This package provides tools for initializing and managing projects in R. It includes

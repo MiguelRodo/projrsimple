@@ -105,7 +105,11 @@ projr_init <- function(dir_raw_data = "_raw_data",
   .install_deps_actual("usethis")
   usethis::proj_set(force = TRUE)
   # Initialise Git repository using gert.
-  gert::git_init(path = ".")
+  if (!dir.exists(".git")) {
+    gert::git_init(path = ".")
+  } else {
+    message("Git repository already initialised.")
+  }
   .git_init_gitignore()
   if (!is.null(dir_cache)) {
     usethis::proj_set(force = TRUE)
@@ -274,6 +278,7 @@ projr_init <- function(dir_raw_data = "_raw_data",
   }
   .git_add_and_commit_all(git_add_and_commit_all)
   message("Connecting to GitHub...")
+  .check_github_auth(github_private)
   usethis::use_github(private = github_private)
   if (github_private) {
     message(
@@ -283,6 +288,51 @@ projr_init <- function(dir_raw_data = "_raw_data",
   }
   invisible(TRUE)
 }
+
+.check_github_auth <- function(private) {
+  .install_deps_actual("gh")
+  
+  # Check if gh can authenticate
+  auth_info <- tryCatch(
+    gh::gh_whoami(),
+    error = function(e) NULL
+  )
+  if (!is.null(auth_info)) {
+    message("✅ Authenticated with GitHub as: ", auth_info$login)
+    return(invisible(TRUE))
+  }
+  
+  # Check if a GitHub PAT is set
+  pat_pat <- Sys.getenv("GITHUB_PAT", unset = NA)
+  pat_token <- Sys.getenv("GITHUB_TOKEN", unset = NA)
+  pat_pat_available <- !is.na(pat_pat) && nchar(pat_pat) > 0
+  pat_token_available <- !is.na(pat_token) && nchar(pat_token) > 0
+  pat_available <- pat_pat_available || pat_token_available
+  if (pat_available) {
+    message("✅ GitHub PAT found in environment variables.")
+    return(invisible(TRUE))
+  }
+  
+  # Check if Git Credential Manager (GCM) is configured
+  cred_check <- tryCatch(
+    system2(
+      "git", c("credential", "fill"),
+      input = "protocol=https\nhost=github.com\n", stdout = TRUE, stderr = TRUE
+    ),
+    error = function(e) NULL
+  )
+  if (!is.null(cred_check) && any(grepl("username=", cred_check))) {
+    message("✅ Git Credential Manager (GCM) detected.")
+    return(invisible(TRUE))
+  }
+  
+  stop(paste0(
+    "❌ No GitHub authentication detected.", "\n",
+    "Run `usethis::create_github_token()` and follow instructions to set up GitHub authentication.",
+    paste0("Then run `usethis::use_github(private = ", private, ") to create the GitHub repo.")
+  ))
+}
+
 
 .git_add_and_commit_all <- function(should_try) {
   if (!should_try || !dir.exists(".git")) {
