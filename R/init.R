@@ -298,7 +298,7 @@ projr_init <- function(dir_raw_data = "_raw_data",
     error = function(e) NULL
   )
   if (!is.null(auth_info)) {
-    message("✅ Authenticated with GitHub as: ", auth_info$login)
+    message("\u2705 Authenticated with GitHub as: ", auth_info$login)
     return(invisible(TRUE))
   }
   
@@ -309,7 +309,7 @@ projr_init <- function(dir_raw_data = "_raw_data",
   pat_token_available <- !is.na(pat_token) && nchar(pat_token) > 0
   pat_available <- pat_pat_available || pat_token_available
   if (pat_available) {
-    message("✅ GitHub PAT found in environment variables.")
+    message("\u2705 GitHub PAT found in environment variables.")
     return(invisible(TRUE))
   }
   
@@ -322,12 +322,12 @@ projr_init <- function(dir_raw_data = "_raw_data",
     error = function(e) NULL
   )
   if (!is.null(cred_check) && any(grepl("username=", cred_check))) {
-    message("✅ Git Credential Manager (GCM) detected.")
+    message("\u2705 Git Credential Manager (GCM) detected.")
     return(invisible(TRUE))
   }
   
   stop(paste0(
-    "❌ No GitHub authentication detected.", "\n",
+    "\u274C No GitHub authentication detected.", "\n",
     "Run `usethis::create_github_token()` and follow instructions to set up GitHub authentication.",
     paste0("Then run `usethis::use_github(private = ", private, ") to create the GitHub repo.")
   ))
